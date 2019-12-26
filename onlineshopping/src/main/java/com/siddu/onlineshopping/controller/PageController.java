@@ -13,7 +13,7 @@ import com.siddu.shoppingbackend.dto.Category;
 public class PageController {
 	
 	@Autowired
-	private CategoryDAO categorydao;
+	private CategoryDAO categoryDAO;
 	
 	@RequestMapping(value= {"/","/home","/index"})
 	public ModelAndView index() 
@@ -22,7 +22,7 @@ public class PageController {
 		mv.addObject("title", "Home");
 		
 		//passing the list of categories
-		mv.addObject("categories", categorydao.list());
+		mv.addObject("categories", categoryDAO.list());
 		mv.addObject("userClickHome", true);
 		return mv;
 	}
@@ -55,7 +55,7 @@ public class PageController {
 		mv.addObject("title", "All Products");
 		
 		//passing the list of categories
-		mv.addObject("categories", categorydao.list());
+		mv.addObject("categories", categoryDAO.list());
 		mv.addObject("userClickAllProducts", true);
 		return mv;
 	}
@@ -68,11 +68,11 @@ public class PageController {
 		//categorydao to fetch a single category
 		
 		Category category=null;
-		category=categorydao.get(id);
+		category=categoryDAO.get(id);
 		mv.addObject("title", category.getName());
 		
 		//passing the list of categories
-		mv.addObject("categories", categorydao.list());
+		mv.addObject("categories", categoryDAO.list());
 		//passing the single category object
 		mv.addObject("category", category);
 		mv.addObject("userClickCategoryProducts", true);
