@@ -23,18 +23,28 @@
   
   <script>
     window.menu='${title}';
+    
+    window.contextRoot='${contextRoot}';
   </script>
 
   <!-- Bootstrap core CSS -->
   <link href="${css}/bootstrap.min.css" rel="stylesheet">
-
+ 
+  <!-- Bootstrap Reader Theme -->
+  <link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
+  
+   <!-- Bootstrap DataTables -->
+  <link href="${css}/dataTables.bootstrap.css" rel="stylesheet">
+  
   <!-- Custom styles for this template -->
   <link href="${css}/shop-homepage.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="${css}/myapp.css" rel="stylesheet">
 
 </head>
 
 <body>
-
+<div class="wrapper">
   <!-- Navigation -->
     <%@include file="./shared/navbar.jsp" %>
  
@@ -60,6 +70,11 @@
       <c:if test="${userClickAllProducts == true or userClickCategoryProducts == true}">
       <%@include file="listProducts.jsp" %>
      </c:if>
+     
+      <!-- Load only when user clicks show product -->
+      <c:if test="${userClickShowProduct == true }">
+      <%@include file="singleProduct.jsp" %>
+     </c:if>
   <!-- /.container -->
 
   <!-- Footer -->
@@ -69,9 +84,18 @@
   <script src="${js}/jquery.min.js"></script>
   <script src="${js}/bootstrap.bundle.min.js"></script>
   
+  <script src="${js}/bootstrap.min.js"></script>
+  
+  <!-- DataTable plug-ins -->
+  <script src="${js}/jquery.dataTables.js"></script>
+  
+  <!-- DataTable bootstrap -->
+ 
+  
+  
   <!-- Self coded javaScript -->
     <script src="${js}/myapp.js"></script>
-
+</div>
 </body>
 
 </html>

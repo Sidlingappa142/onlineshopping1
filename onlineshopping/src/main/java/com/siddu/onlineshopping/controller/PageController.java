@@ -1,19 +1,29 @@
 package com.siddu.onlineshopping.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.siddu.onlineshopping.exception.ProductNotFoundException;
 import com.siddu.shoppingbackend.dao.CategoryDAO;
+import com.siddu.shoppingbackend.dao.ProductDAO;
 import com.siddu.shoppingbackend.dto.Category;
+import com.siddu.shoppingbackend.dto.Product;
 
 @Controller
 public class PageController {
 	
+	private static final Logger logger=LoggerFactory.getLogger(PageController.class);
+	
 	@Autowired
 	private CategoryDAO categoryDAO;
+	
+	@Autowired 
+	private ProductDAO productDAO;
 	
 	@RequestMapping(value= {"/","/home","/index"})
 	public ModelAndView index() 
@@ -21,6 +31,8 @@ public class PageController {
 		ModelAndView mv=new ModelAndView("page");
 		mv.addObject("title", "Home");
 		
+		logger.info("inside PageController index method-INFO");
+		logger.debug("inside PageController index method -DEBUG");
 		//passing the list of categories
 		mv.addObject("categories", categoryDAO.list());
 		mv.addObject("userClickHome", true);
@@ -76,6 +88,27 @@ public class PageController {
 		//passing the single category object
 		mv.addObject("category", category);
 		mv.addObject("userClickCategoryProducts", true);
+		return mv;
+	}
+	
+	/*
+	 * Viewing a single product
+	 * */
+	@RequestMapping(value="/show/{id}/product")
+	public ModelAndView showSingleProduct(@PathVariable int id)throws ProductNotFoundException
+	{
+		ModelAndView mv=new ModelAndView("page");
+		Product product=productDAO.get(id);
+		if(product==null) throw new ProductNotFoundException();
+		
+		//update product view count
+		product.setViews(product.getViews()+1);
+		productDAO.update(product);
+		//...........................
+		
+		mv.addObject("title", product.getName());
+		mv.addObject("product", product);
+		mv.addObject("userClickShowProduct", true);
 		return mv;
 	}
 	
