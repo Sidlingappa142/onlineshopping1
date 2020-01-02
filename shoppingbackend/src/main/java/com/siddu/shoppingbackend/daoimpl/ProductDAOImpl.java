@@ -68,16 +68,15 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public boolean delete(Product product) {
-try {
-			
+		try {
+
 			product.setActive(false);
 			// call the update method
 			return this.update(product);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-		catch(Exception ex) {		
-			ex.printStackTrace();			
-		}		
-		return false;	
+		return false;
 	}
 
 	@Override

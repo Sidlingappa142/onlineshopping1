@@ -18,6 +18,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="_csrf" content="${_csrf.token}">
+  <meta name="_csrf_header" content="${_csrf.headerName}">
 
   <title>Online shopping-${title}</title>
   
@@ -44,7 +46,7 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div class="wrapper bgcolr">
   <!-- Navigation -->
     <%@include file="./shared/navbar.jsp" %>
  
@@ -75,26 +77,46 @@
       <c:if test="${userClickShowProduct == true }">
       <%@include file="singleProduct.jsp" %>
      </c:if>
+     
+     <!-- Load only when user clicks manage products -->
+      <c:if test="${userClickManageProducts == true }">
+      <%@include file="manageProducts.jsp" %>
+     </c:if>
+     
+      <!-- Load only when user clicks cart -->
+      <c:if test="${userClickShowCart == true }">
+      <%@include file="cart.jsp" %>
+     </c:if>
   <!-- /.container -->
 
   <!-- Footer -->
    <%@include file="./shared/footer.jsp" %>
 
+
+
+
   <!-- Bootstrap core JavaScript -->
   <script src="${js}/jquery.min.js"></script>
-  <script src="${js}/bootstrap.bundle.min.js"></script>
+  
+   <!--jQuery validator -->
+  <script src="${js}/jquery.validate.js"></script>
+  <script src="${js}/jquery.validate.min.js"></script>
   
   <script src="${js}/bootstrap.min.js"></script>
-  
+ 
   <!-- DataTable plug-ins -->
   <script src="${js}/jquery.dataTables.js"></script>
+ 
+   <!-- bootbox js -->
+  <script src="${js}/bootbox.min.js"></script>
+  
   
   <!-- DataTable bootstrap -->
- 
-  
-  
   <!-- Self coded javaScript -->
-    <script src="${js}/myapp.js"></script>
+   <script src="${js}/myapp.js"></script>
+  
+  
+  
 </div>
 </body>
 
